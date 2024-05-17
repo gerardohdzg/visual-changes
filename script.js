@@ -1,8 +1,8 @@
 // script.js
 
 async function fetchRepoContents() {
-    const username = 'YOUR_GITHUB_USERNAME';
-    const repo = 'YOUR_REPO_NAME';
+    const username = 'gerardohdzg';
+    const repo = 'visual-changes';
     const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/`;
 
     try {
