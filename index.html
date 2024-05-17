@@ -1,10 +1,44 @@
 <!DOCTYPE html>
-//write a simple hello world program
-<html>
-  <head>
-    <title>Hello World</title>
-  </head>
-  <body>
-    <h1>Hello World</h1>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repository Index</title>
+</head>
+<body>
+    <h1>Repository Index</h1>
+    <ul id="folder-list"></ul>
+
+    <script>
+        async function fetchRepoContents() {
+            const username = 'gerardohdzg';
+            const repo = 'visual-changes';
+            const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/`;
+
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                const data = await response.json();
+                const folderList = document.getElementById('folder-list');
+
+                data.forEach(item => {
+                    if (item.type === 'dir') {
+                        const listItem = document.createElement('li');
+                        const link = document.createElement('a');
+                        link.href = `${item.path}/index.html`;
+                        link.textContent = item.name;
+                        listItem.appendChild(link);
+                        folderList.appendChild(listItem);
+                    }
+                });
+            } catch (error) {
+                console.error('There was a problem with the fetch operation:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchRepoContents);
+    </script>
+</body>
 </html>
